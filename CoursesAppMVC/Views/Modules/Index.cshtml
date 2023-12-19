@@ -1,0 +1,112 @@
+﻿@model IEnumerable<CoursesAppMVC.Models.Modules>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Include chart.js library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ModuleCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModuleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Credits)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassHoursPerWeek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SelfStudyHoursPerWeek)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+           @*  <th>
+                @Html.DisplayNameFor(model => model.WeeksInSemester)
+            </th> *@
+            <th>
+                @Html.DisplayNameFor(model => model.StudentID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModuleCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModuleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credits)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassHoursPerWeek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SelfStudyHoursPerWeek)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentID)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ModuleID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ModuleID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ModuleID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+
+</table>
+
+@* Chart code apapted from:
+Author:Sarath Jayachandran
+Link: https://www.c-sharpcorner.com/article/charts-in-asp-net-mvc-using-chart-js/ *@
+
+<!-- Add canvas for chart -->
+<canvas id="myChart" width="300" height="200"></canvas>
+
+@section scripts
+{
+    <script>
+        // JavaScript code for rendering the chart
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Json.Serialize(Model.Select(m => m.ModuleName))),
+                datasets: [{
+                    label: 'Hours Spent In Class',
+                    data: @Html.Raw(Json.Serialize(Model.Select(m => m.ClassHoursPerWeek))),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }, {
+                    label: 'Self Study Hours Remaining',
+                    data: @Html.Raw(Json.Serialize(Model.Select(m => m.SelfStudyHoursPerWeek))),
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            }
+        });
+    </script>
+}
