@@ -25,7 +25,7 @@ Here is a video walkthrough about the application and its features: [YouTube Wal
 1. Clone the repository OR download the ZIP folder:
 
     ```bash
-    git clone https://github.com/VCDBN/prog6212-poe-ST10082747.git
+    git clone https://github.com/SamTheCopy-ninja/C-Sharp-ASP.NET-Core-Modules-Tracker-Web-App.git
     ```
 
 2. Navigate to the project directory on your device
@@ -117,7 +117,7 @@ Here is a video walkthrough about the application and its features: [YouTube Wal
 
 ## Author
 
-- [Samkelo Tshabalala - ST10082747](https://github.com/ST10082747)
+- [Samkelo Tshabalala](https://github.com/SamTheCopy-ninja)
 
 ## Code Attribution
 
